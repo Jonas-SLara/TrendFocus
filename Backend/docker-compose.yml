@@ -1,0 +1,21 @@
+services:
+  banco_de_dados_trendfocus:
+    image: postgres:17
+    container_name: db_trendfocus
+    ports: 
+      - "5001:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: trendfocus
+    networks:
+      - db_trendfocus
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "trendfocus"]
+      interval: 5s
+      timeout: 20s
+      retries: 5
+      start_period: 10s
+networks:
+  db_trendfocus:
+    driver: bridge
