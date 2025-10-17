@@ -31,6 +31,5 @@ public class NoticiaDTO {
         this.urlImagem = noticia.getUrlImagem();
         this.urlOriginal = noticia.getUrlOriginal();
         this.termos = noticia.getTermos();
-        this.categorias = noticia.getCategorias();
     }
 }

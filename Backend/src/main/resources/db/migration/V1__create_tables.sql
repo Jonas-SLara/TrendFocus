@@ -39,11 +39,6 @@ CREATE TABLE termo_chave(
   PRIMARY KEY(id)
 );
 
-CREATE TABLE noticia_area(
-  noticia_id BIGINT REFERENCES noticia(id),
-  area_conhecimento_id BIGINT REFERENCES area_conhecimento(id)
-);
-
 --Relacionamento de noticia e termo para buscas e pesquisas de acordo com o termo
 CREATE TABLE noticia_termo (
   noticia_id BIGINT REFERENCES noticia(id),

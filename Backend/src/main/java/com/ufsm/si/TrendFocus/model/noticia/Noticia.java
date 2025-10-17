@@ -3,7 +3,6 @@ package com.ufsm.si.TrendFocus.model.noticia;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 
-import com.ufsm.si.TrendFocus.model.categoria.Categoria;
 import com.ufsm.si.TrendFocus.model.termo.Termo;
 
 import jakarta.persistence.Column;
@@ -48,14 +47,6 @@ public class Noticia {
     @Column(name = "data_publicacao") private LocalDateTime dataPublicacao;
 
     @Column(name = "data_coleta") private LocalDateTime dataColeta;
-
-    @ManyToMany
-    @JoinTable(
-        name = "noticia_area",
-        joinColumns = @JoinColumn(name="noticia_id"),
-        inverseJoinColumns = @JoinColumn(name="area_conhecimento_id")
-    )
-    private HashSet<Categoria> categorias;
 
     @ManyToMany
     @JoinTable(
