@@ -10,6 +10,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,15 +31,24 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome") private String nome;
+    @Size(min=3, max=50, message = "nome deve ter de 3 a 50 caracteres")
+    @Column(name = "nome")
+    private String nome;
 
-    @Column(name = "senha") private String senha;
+    @Size(min=6, message="a senha tem que ter no mínimo 6 caracteres")
+    @Column(name = "senha")
+    private String senha;
 
-    @Column(name = "email") private String email;
+    @Email(message = "email inválido")
+    @NotBlank(message = "email é obrigatório")
+    @Column(name = "email") 
+    private String email;
 
-    @Column(name = "created") private LocalDateTime dataCriado;
+    @Column(name = "created") 
+    private LocalDateTime dataCriado;
 
-    @Column(name = "ativo") private boolean ativo;
+    @Column(name = "ativo") 
+    private boolean ativo;
 
     @Column(name = "tipo")
     @Enumerated(EnumType.STRING)

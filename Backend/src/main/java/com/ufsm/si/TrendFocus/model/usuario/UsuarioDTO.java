@@ -16,6 +16,7 @@ public class UsuarioDTO {
     private LocalDateTime created;
     private Boolean ativo;
     private String email;
+    private Long id;
 
     public UsuarioDTO(Usuario usuario){
         this.tipo = usuario.getTipo();
@@ -23,5 +24,6 @@ public class UsuarioDTO {
         this.created = usuario.getDataCriado();
         this.nome = usuario.getNome();
         this.email = usuario.getEmail();
+        this.id = usuario.getId();
     }
 }
