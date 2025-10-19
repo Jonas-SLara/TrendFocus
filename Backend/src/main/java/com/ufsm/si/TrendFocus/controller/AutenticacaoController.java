@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ufsm.si.TrendFocus.infra.security.TokenServiceJWT;
 import com.ufsm.si.TrendFocus.model.usuario.DadosAutenticacao;
+import com.ufsm.si.TrendFocus.model.usuario.LoginResponseDTO;
 
 import jakarta.validation.Valid;
 
@@ -37,6 +38,6 @@ public class AutenticacaoController {
         User usuario = (User) aut.getPrincipal();
         String token = tokenServiceJWT.gerarToken(usuario);
 
-        return ResponseEntity.ok().body(token);
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 }
