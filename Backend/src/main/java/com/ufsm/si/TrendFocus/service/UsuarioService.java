@@ -16,14 +16,16 @@ import com.ufsm.si.TrendFocus.model.usuario.UsuarioRepository;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final BCryptPasswordEncoder bCrypt;
 
     public UsuarioService(UsuarioRepository usuarioRepository){
         this.usuarioRepository = usuarioRepository;
+        this.bCrypt = new BCryptPasswordEncoder(12);
     }
 
     public UsuarioDTO salvar(UsuarioRegisterDTO ur){
         Usuario usuario = new Usuario();
-        usuario.setSenha(new BCryptPasswordEncoder().encode(ur.getSenha()));
+        usuario.setSenha(bCrypt.encode(ur.getSenha()));
         usuario.setNome(ur.getNome());
         usuario.setEmail(ur.getEmail());
         usuario.setAtivo(false);

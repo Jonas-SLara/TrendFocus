@@ -1,33 +1,35 @@
-package com.ufsm.si.TrendFocus.model.categoria;
+package com.ufsm.si.TrendFocus.model.topico;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "area_conhecimento")
+@Table(name = "topico")
+
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Categoria {
-
+public class Topico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "titulo")
+    @NotBlank
     private String titulo;
 
-    @Column(name = "descricao")
     private String descricao;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "area_conhecimento")
+    private AreaConhecimentoEnum areaConhecimento;
 }

@@ -1,10 +1,7 @@
 package com.ufsm.si.TrendFocus.model.noticia;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-
-import com.ufsm.si.TrendFocus.model.categoria.Categoria;
-import com.ufsm.si.TrendFocus.model.termo.Termo;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,8 +17,7 @@ public class NoticiaDTO {
     private String fonte;
     private String urlImagem;
     private String urlOriginal;
-    private HashSet<Termo> termos;
-    private HashSet<Categoria> categorias;
+    private List<String> termos;
 
     public NoticiaDTO(Noticia noticia){
         this.titulo = noticia.getTitulo();
@@ -30,6 +26,8 @@ public class NoticiaDTO {
         this.fonte = noticia.getFonte();
         this.urlImagem = noticia.getUrlImagem();
         this.urlOriginal = noticia.getUrlOriginal();
-        this.termos = noticia.getTermos();
+        //obter lista de termos
+        this.termos = noticia.getTermos().stream()
+        .map(t -> t.getTermo()).toList();
     }
 }

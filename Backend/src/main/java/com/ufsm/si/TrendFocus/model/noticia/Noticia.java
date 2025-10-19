@@ -23,6 +23,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "noticia")
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -34,19 +35,21 @@ public class Noticia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "titulo") private String titulo;
-    
-    @Column(name = "resumo") private String resumo;
+    private String titulo;
+    private String resumo;
+    private String fonte;
 
-    @Column(name = "url_original") private String urlOriginal;
+    @Column(name = "url_original") 
+    private String urlOriginal;
 
-    @Column(name = "url_imagem") private String urlImagem;
+    @Column(name = "url_imagem")
+    private String urlImagem;
 
-    @Column(name = "fonte") private String fonte;
+    @Column(name = "data_publicacao") 
+    private LocalDateTime dataPublicacao;
 
-    @Column(name = "data_publicacao") private LocalDateTime dataPublicacao;
-
-    @Column(name = "data_coleta") private LocalDateTime dataColeta;
+    @Column(name = "data_coleta") 
+    private LocalDateTime dataColeta;
 
     @ManyToMany
     @JoinTable(

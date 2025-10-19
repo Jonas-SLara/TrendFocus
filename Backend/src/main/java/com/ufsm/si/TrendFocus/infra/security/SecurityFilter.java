@@ -16,6 +16,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/*
+ * Classe precisa extender uma outra classe para executa-la
+ * uma vez por requisição através de um método chamado em cada requisição que:
+ * extrai o token do cabeçalho
+ * valida o token e se for válido busca o userDetails no banco
+ * cria um objeto de autenticação e coloca o usuario autenticado no contexto do spring
+ * e depois chama o próximo filtro
+ */
 @Component
 public class SecurityFilter extends OncePerRequestFilter{
 
@@ -37,13 +45,14 @@ public class SecurityFilter extends OncePerRequestFilter{
 
         //caso tenha token, obter email através do token achar o usuario
         if(token != null){
+            //caso o token não seja válido lança exceção
             String subject = tokenServiceJWT.validaToken(token);
             UserDetails userDetails = this.usuarioDetailsService.loadUserByUsername(subject);
             UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
-        //se não tiver token passa para o próximo filtro
+        //passa para o próximo filtro
         filterChain.doFilter(request, response);
     }
 

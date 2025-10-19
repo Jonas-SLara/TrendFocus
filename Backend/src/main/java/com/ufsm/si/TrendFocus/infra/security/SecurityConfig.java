@@ -24,6 +24,10 @@ public class SecurityConfig {
         this.securityFilter = filtro;
     }
 
+    /*
+     * Define como o spring security protege as requisições http
+     * construindo uma pipeline de filtros e regras para cada requisição
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity

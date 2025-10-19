@@ -8,12 +8,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class TermoDTO {
-
+    private Long id;
     private String termo;
-    private String categoria;
+    private String topico;
 
     public TermoDTO(Termo termo){
+        this.id = termo.getId();
         this.termo = termo.getTermo();
-        this.categoria = termo.getCategoria().getTitulo();
+        this.topico = termo.getTopico().getTitulo(); 
     }
 }
