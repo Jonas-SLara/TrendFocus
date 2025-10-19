@@ -1,6 +1,12 @@
 package com.ufsm.si.TrendFocus.model.usuario;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,7 +31,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Usuario {
+public class Usuario implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,4 +59,48 @@ public class Usuario {
     @Column(name = "tipo")
     @Enumerated(EnumType.STRING)
     private Role tipo;
+
+    /**
+     * getAuthorities()
+     * Retorna as permissões (roles) do usuário no formato que o Spring entende.
+     * 
+     * O Spring usa objetos do tipo GrantedAuthority para representar "papéis"
+     * Exemplo: ROLE_ADM, ROLE_ANALISTA
+     */
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(this.tipo.name()));
+    }
+
+    /*Retorna a senha já criptografada*/
+    @Override
+    public String getPassword() {
+        return this.senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

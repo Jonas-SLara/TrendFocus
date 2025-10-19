@@ -28,7 +28,7 @@ public class UsuarioService {
         usuario.setEmail(ur.getEmail());
         usuario.setAtivo(false);
         usuario.setDataCriado(LocalDateTime.now());
-        usuario.setTipo(Role.ANALISTA); //por padrão é analista de dados
+        usuario.setTipo(Role.ROLE_ANALISTA); //por padrão é analista de dados
         return new UsuarioDTO(usuarioRepository.save(usuario));
     }
 

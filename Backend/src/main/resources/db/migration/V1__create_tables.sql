@@ -8,7 +8,7 @@ CREATE TABLE usuario(
   created TIMESTAMP DEFAULT NOW(),
   ativo BOOLEAN DEFAULT true,
   tipo VARCHAR(50) CHECK(tipo IN(
-    'ADM', 'ANALISTA'
+    'ROLE_ADM', 'ROLE_ANALISTA'
   )),
   PRIMARY KEY(id)
 );

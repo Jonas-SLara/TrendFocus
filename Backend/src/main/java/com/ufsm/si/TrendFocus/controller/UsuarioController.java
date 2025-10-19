@@ -28,6 +28,7 @@ public class UsuarioController {
         this.service = service;
     }
 
+    //endpoint de acesso público para se cadastrar como ROLE_ANALISTA
     @PostMapping
     @Transactional
     public ResponseEntity<?> criar(@RequestBody @Valid UsuarioRegisterDTO ur, UriComponentsBuilder uriBuilder) {       
@@ -40,9 +41,9 @@ public class UsuarioController {
         return ResponseEntity.created(uri).body(ud);
     }
 
+    //aqui há o cuidado de quem tem acesso ao endpoint ROLE_ADMIN apenas
     @GetMapping
     public ResponseEntity<?> findAll() {
         return ResponseEntity.ok().body(this.service.listar());
     }
-
 }
