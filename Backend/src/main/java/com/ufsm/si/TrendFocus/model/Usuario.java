@@ -1,4 +1,4 @@
-package com.ufsm.si.TrendFocus.model.usuario;
+package com.ufsm.si.TrendFocus.model;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.ufsm.si.TrendFocus.model.enums.Role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

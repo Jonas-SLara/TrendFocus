@@ -1,9 +1,7 @@
-package com.ufsm.si.TrendFocus.model.noticia;
+package com.ufsm.si.TrendFocus.model;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-
-import com.ufsm.si.TrendFocus.model.termo.Termo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

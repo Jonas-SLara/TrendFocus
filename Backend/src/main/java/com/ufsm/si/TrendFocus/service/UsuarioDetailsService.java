@@ -1,5 +1,6 @@
 package com.ufsm.si.TrendFocus.service;
 
+
 import java.util.Optional;
 
 import org.springframework.security.core.userdetails.User;
@@ -8,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.ufsm.si.TrendFocus.model.usuario.Usuario;
-import com.ufsm.si.TrendFocus.model.usuario.UsuarioRepository;
+import com.ufsm.si.TrendFocus.model.Usuario;
+import com.ufsm.si.TrendFocus.repositories.UsuarioRepository;
 
 @Service
 public class UsuarioDetailsService implements UserDetailsService{

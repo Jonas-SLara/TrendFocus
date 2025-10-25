@@ -1,4 +1,4 @@
-package com.ufsm.si.TrendFocus.model.usuario;
+package com.ufsm.si.TrendFocus.model.enums;
 
 /*
  * POR PADRÃO AS ROLES do spring security começam com este prefixo

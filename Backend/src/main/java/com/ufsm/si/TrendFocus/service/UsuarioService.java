@@ -6,11 +6,11 @@ import java.util.List;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.ufsm.si.TrendFocus.model.usuario.Role;
-import com.ufsm.si.TrendFocus.model.usuario.Usuario;
-import com.ufsm.si.TrendFocus.model.usuario.UsuarioDTO;
-import com.ufsm.si.TrendFocus.model.usuario.UsuarioRegisterDTO;
-import com.ufsm.si.TrendFocus.model.usuario.UsuarioRepository;
+import com.ufsm.si.TrendFocus.dto.request.UsuarioRegisterDTO;
+import com.ufsm.si.TrendFocus.dto.response.UsuarioDTO;
+import com.ufsm.si.TrendFocus.model.Usuario;
+import com.ufsm.si.TrendFocus.model.enums.Role;
+import com.ufsm.si.TrendFocus.repositories.UsuarioRepository;
 
 @Service
 public class UsuarioService {

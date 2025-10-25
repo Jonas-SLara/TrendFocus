@@ -1,4 +1,6 @@
-package com.ufsm.si.TrendFocus.model.topico;
+package com.ufsm.si.TrendFocus.dto.response;
+
+import com.ufsm.si.TrendFocus.model.Topico;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

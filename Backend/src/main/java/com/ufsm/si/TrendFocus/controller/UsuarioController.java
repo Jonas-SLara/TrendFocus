@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.ufsm.si.TrendFocus.model.usuario.UsuarioDTO;
-import com.ufsm.si.TrendFocus.model.usuario.UsuarioRegisterDTO;
+import com.ufsm.si.TrendFocus.dto.request.UsuarioRegisterDTO;
+import com.ufsm.si.TrendFocus.dto.response.UsuarioDTO;
 import com.ufsm.si.TrendFocus.service.UsuarioService;
 
 import jakarta.transaction.Transactional;

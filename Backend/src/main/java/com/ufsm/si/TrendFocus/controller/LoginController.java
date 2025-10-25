@@ -10,27 +10,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ufsm.si.TrendFocus.dto.request.LoginRequestDTO;
+import com.ufsm.si.TrendFocus.dto.response.LoginResponseDTO;
 import com.ufsm.si.TrendFocus.infra.security.TokenServiceJWT;
-import com.ufsm.si.TrendFocus.model.usuario.DadosAutenticacao;
-import com.ufsm.si.TrendFocus.model.usuario.LoginResponseDTO;
-
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/login")
-public class AutenticacaoController {
+public class LoginController {
 
     private final AuthenticationManager manager;
     private final TokenServiceJWT tokenServiceJWT;
 
-    public AutenticacaoController(AuthenticationManager manager, TokenServiceJWT tokenServiceJWT){
+    public LoginController(AuthenticationManager manager, TokenServiceJWT tokenServiceJWT){
         this.manager = manager;
         this.tokenServiceJWT = tokenServiceJWT;
     }
 
     //implementação da autenticação vai aqui
     @PostMapping
-    public ResponseEntity<?> login(@RequestBody @Valid DadosAutenticacao dados){
+    public ResponseEntity<?> login(@RequestBody LoginRequestDTO dados){
         
         Authentication authentication = new UsernamePasswordAuthenticationToken(dados.getEmail(), dados.getSenha());
         Authentication aut = manager.authenticate(authentication);

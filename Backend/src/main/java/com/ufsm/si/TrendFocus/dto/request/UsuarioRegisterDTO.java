@@ -1,4 +1,4 @@
-package com.ufsm.si.TrendFocus.model.usuario;
+package com.ufsm.si.TrendFocus.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

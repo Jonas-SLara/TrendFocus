@@ -1,6 +1,9 @@
-package com.ufsm.si.TrendFocus.model.usuario;
+package com.ufsm.si.TrendFocus.dto.response;
 
 import java.time.LocalDateTime;
+
+import com.ufsm.si.TrendFocus.model.Usuario;
+import com.ufsm.si.TrendFocus.model.enums.Role;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

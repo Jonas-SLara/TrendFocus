@@ -1,4 +1,4 @@
-package com.ufsm.si.TrendFocus.model.topico;
+package com.ufsm.si.TrendFocus.model.enums;
 
 public enum AreaConhecimentoEnum {
     CIÊNCIAS_AGRÁRIAS,

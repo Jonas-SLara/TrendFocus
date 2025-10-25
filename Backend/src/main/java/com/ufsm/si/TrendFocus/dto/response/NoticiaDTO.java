@@ -1,7 +1,9 @@
-package com.ufsm.si.TrendFocus.model.noticia;
+package com.ufsm.si.TrendFocus.dto.response;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import com.ufsm.si.TrendFocus.model.Noticia;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
