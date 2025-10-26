@@ -1,6 +1,7 @@
 package com.ufsm.si.TrendFocus.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -15,11 +16,10 @@ import java.net.URI;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-
 
 @RestController
 @RequestMapping("/topico")
@@ -31,12 +31,11 @@ public class TopicoController {
         this.topicoService = topicoService;
     }
 
-    //GET http://localhost:8080/topico?page=0&size=3
+    //GET http://localhost:3000/topico?page=0&size=3
     @GetMapping
     public ResponseEntity<Page<TopicoResponseDTO>> listar(Pageable pageable) {
         return ResponseEntity.ok().body(topicoService.listar(pageable));
     }
-    
 
     @PostMapping
     public ResponseEntity<TopicoResponseDTO> salvar(
@@ -48,5 +47,11 @@ public class TopicoController {
                 .buildAndExpand(topico.getTitulo())
                 .toUri();
         return ResponseEntity.created(location).body(topico);
-    }   
+    }
+    
+    @DeleteMapping
+    public ResponseEntity<?> deletar(@RequestParam String nome){
+        topicoService.deletar(nome);
+        return ResponseEntity.noContent().build();
+    }
 }

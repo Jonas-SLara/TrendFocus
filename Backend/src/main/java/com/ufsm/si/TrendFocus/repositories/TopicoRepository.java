@@ -24,7 +24,7 @@ public interface TopicoRepository extends JpaRepository<Topico, Long>{
     @Query("SELECT t FROM Topico t LEFT JOIN FETCH t.termos WHERE t.id = :id")
     Optional<Topico> buscarPorId(@Param("id") Long ind);
 
-    //versao paginada
+    //busc com paginacao
     @Query("SELECT t FROM Topico t LEFT JOIN FETCH t.termos")
     Page<Topico> buscarTodos(Pageable pageable);
 

@@ -1,5 +1,8 @@
 package com.ufsm.si.TrendFocus.service;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,6 +30,16 @@ public class TopicoService {
     public Page<TopicoResponseDTO> listar(Pageable pageable){
        return topicoRepository.buscarTodos(pageable)
             .map(topico -> TopicoMapper.toResponse(topico));
+    }
+
+    public void deletar(String nome){
+        Optional<Topico> topico = topicoRepository.findByTitulo(nome);
+        if(topico.isPresent()){
+            topicoRepository.deleteById(topico.get().getId());
+            System.out.println(topico.get().getTitulo() + " removido");
+        } else{
+            throw new NoSuchElementException(nome + " não encontrado para a operação");
+        } 
     }
 
 }

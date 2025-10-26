@@ -1,9 +1,10 @@
 package com.ufsm.si.TrendFocus.service;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ufsm.si.TrendFocus.dto.request.TermoRequestDTO;
@@ -36,8 +37,18 @@ public class TermoService {
         return TermoMapper.toResponse(termoRepository.save(novo));
     }
 
-    public List<TermoResponseDTO> listar(){
-        List<Termo> termos = termoRepository.findAll();
-        return termos.stream().map(t -> TermoMapper.toResponse(t)).toList();
+    public Page<TermoResponseDTO> listar(Pageable pageable){
+        return termoRepository.buscarTodos(pageable)
+            .map(termo -> TermoMapper.toResponse(termo));
+    }
+
+    public void deletar(String nome){
+        Optional<Termo> termo = termoRepository.findByTermo(nome);
+        if(termo.isPresent()){
+            termoRepository.deleteById(termo.get().getId());
+            System.out.println("termo: " + termo.get().getTermo() + " deletado");
+        } else{
+            throw new NoSuchElementException(nome + " não encontrado para operação");
+        }
     }
 }

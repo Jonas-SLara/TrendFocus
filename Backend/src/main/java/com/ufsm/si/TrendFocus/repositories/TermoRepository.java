@@ -3,6 +3,8 @@ package com.ufsm.si.TrendFocus.repositories;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -26,4 +28,7 @@ public interface TermoRepository extends JpaRepository<Termo, Long>{
     @Query("SELECT t FROM Termo t WHERE t.topico.areaConhecimento = :area")
     List<Termo> buscarPorAreaConhecimento(@Param("area") AreaConhecimentoEnum area);
 
+    //listar todos os termos com paginacao
+    @Query("SELECT t FROM Termo t")
+    Page<Termo> buscarTodos(Pageable pageable);
 } 

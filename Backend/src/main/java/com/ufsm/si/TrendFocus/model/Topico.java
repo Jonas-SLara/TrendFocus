@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ufsm.si.TrendFocus.model.enums.AreaConhecimentoEnum;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -44,7 +45,10 @@ public class Topico {
     @Column(name = "area_conhecimento")
     private AreaConhecimentoEnum areaConhecimento;
 
-    //bidirecionamento
-    @OneToMany(mappedBy = "topico", fetch = FetchType.LAZY)
+    //bidirecionamento e delet de termos sem vinculo
+    @OneToMany(mappedBy = "topico",
+        fetch = FetchType.LAZY,
+        cascade = CascadeType.ALL,
+        orphanRemoval = true)
     private List<Termo> termos;
 }

@@ -1,6 +1,7 @@
 package com.ufsm.si.TrendFocus.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -11,9 +12,11 @@ import com.ufsm.si.TrendFocus.service.TermoService;
 import jakarta.validation.Valid;
 
 import java.net.URI;
-import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,8 +33,8 @@ public class TermoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TermoResponseDTO>> listar() {
-        return ResponseEntity.ok().body(termoService.listar());
+    public ResponseEntity<Page<TermoResponseDTO>> listar(Pageable pageable) {
+        return ResponseEntity.ok().body(termoService.listar(pageable));
     }
     
     @PostMapping
@@ -47,5 +50,10 @@ public class TermoController {
 
         return ResponseEntity.created(location).body(termo);
     }
-    
+
+    @DeleteMapping
+    public ResponseEntity<?> deletar(@RequestParam String nome){
+        termoService.deletar(nome);
+        return ResponseEntity.noContent().build();
+    }
 }

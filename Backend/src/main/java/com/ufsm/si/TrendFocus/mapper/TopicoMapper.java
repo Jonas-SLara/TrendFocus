@@ -18,10 +18,9 @@ public class TopicoMapper {
     }
 
     public static TopicoResponseDTO toResponse(Topico topico){
-        List<String> termos = topico.getTermos()
-            .stream()
-            .map(topic-> topic.getTermo())
-            .toList();
+        List<String> termos = (topico.getTermos()==null)
+        ? List.of()
+        : topico.getTermos().stream().map(topic-> topic.getTermo()).toList();
         return new TopicoResponseDTO(
             topico.getTitulo(),
             topico.getDescricao(),
