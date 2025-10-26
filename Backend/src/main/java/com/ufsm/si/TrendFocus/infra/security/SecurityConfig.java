@@ -43,6 +43,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/termo").permitAll()
                 .requestMatchers(HttpMethod.POST, "/termo").hasAnyRole("ADM", "ANALISTA")
                 .requestMatchers(HttpMethod.DELETE, "/termo").hasAnyRole("ADM", "ANALISTA")
+                .requestMatchers(HttpMethod.GET, "/noticia").permitAll()
+                .requestMatchers(HttpMethod.POST, "/noticia").hasAnyRole("ADM", "ANALISTA")
                 .anyRequest().authenticated()
             )
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

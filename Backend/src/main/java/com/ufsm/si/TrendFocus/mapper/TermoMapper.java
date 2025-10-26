@@ -15,6 +15,11 @@ public class TermoMapper {
     }
 
     public static TermoResponseDTO toResponse(Termo termo){
-        return new TermoResponseDTO(termo.getTermo(), termo.getTopico().getTitulo());
+        return new TermoResponseDTO(
+            termo.getId(),
+            termo.getTermo(),
+            termo.getTopico().getTitulo(),
+            termo.getTopico().getAreaConhecimento().name()
+        );
     }
 }

@@ -10,6 +10,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TermoResponseDTO {
+    private Long id;
     private String termo;
     private String topico;
+    private String areaConhecimento;
 }

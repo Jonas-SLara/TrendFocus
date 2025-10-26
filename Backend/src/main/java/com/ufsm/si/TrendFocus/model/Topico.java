@@ -1,6 +1,5 @@
 package com.ufsm.si.TrendFocus.model;
 
-import java.util.HashSet;
 import java.util.List;
 
 import com.ufsm.si.TrendFocus.model.enums.AreaConhecimentoEnum;

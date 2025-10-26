@@ -1,8 +1,9 @@
 package com.ufsm.si.TrendFocus.model;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -49,11 +50,13 @@ public class Noticia {
     @Column(name = "data_coleta") 
     private LocalDateTime dataColeta;
 
-    @ManyToMany
+    //remover a relação da tabela noticia_termo automaticamente quando a noticia for deletada
+    //mas sem remover os termos
+    @ManyToMany()
     @JoinTable(
         name = "noticia_termo",
         joinColumns = @JoinColumn(name="noticia_id"),
         inverseJoinColumns = @JoinColumn(name="termo_id")
     )
-    private HashSet<Termo> termos;
+    private List<Termo> termos;
 }
