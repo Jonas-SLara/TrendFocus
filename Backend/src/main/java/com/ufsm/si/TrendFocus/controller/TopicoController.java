@@ -11,12 +11,14 @@ import com.ufsm.si.TrendFocus.service.TopicoService;
 import jakarta.validation.Valid;
 
 import java.net.URI;
-import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
@@ -29,10 +31,12 @@ public class TopicoController {
         this.topicoService = topicoService;
     }
 
+    //GET http://localhost:8080/topico?page=0&size=3
     @GetMapping
-    public ResponseEntity<List<TopicoResponseDTO>> listar() {
-        return ResponseEntity.ok().body(topicoService.listar());
+    public ResponseEntity<Page<TopicoResponseDTO>> listar(Pageable pageable) {
+        return ResponseEntity.ok().body(topicoService.listar(pageable));
     }
+    
 
     @PostMapping
     public ResponseEntity<TopicoResponseDTO> salvar(

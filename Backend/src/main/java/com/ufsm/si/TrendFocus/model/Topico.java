@@ -46,5 +46,5 @@ public class Topico {
 
     //bidirecionamento
     @OneToMany(mappedBy = "topico", fetch = FetchType.LAZY)
-    private HashSet<Termo> termos;
+    private List<Termo> termos;
 }

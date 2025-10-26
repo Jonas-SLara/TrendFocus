@@ -1,7 +1,7 @@
 package com.ufsm.si.TrendFocus.service;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ufsm.si.TrendFocus.dto.request.TopicoRequestDTO;
@@ -21,14 +21,12 @@ public class TopicoService {
 
     public TopicoResponseDTO salvar(TopicoRequestDTO topico){
         Topico novo = TopicoMapper.toEntity(topico);
-        return TopicoMapper.toResponse(topicoRepository.save(novo), null);
+        return TopicoMapper.toResponse(topicoRepository.save(novo));
     }
 
-    public List<TopicoResponseDTO> listar(){
-        return topicoRepository.findAll()
-            .stream()
-            .map(topico -> TopicoMapper.toResponse(topico, null))
-            .toList();
+    public Page<TopicoResponseDTO> listar(Pageable pageable){
+       return topicoRepository.buscarTodos(pageable)
+            .map(topico -> TopicoMapper.toResponse(topico));
     }
 
 }

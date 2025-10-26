@@ -1,6 +1,5 @@
 package com.ufsm.si.TrendFocus.mapper;
 
-import com.ufsm.si.TrendFocus.model.Termo;
 import com.ufsm.si.TrendFocus.model.Topico;
 
 import java.util.List;
