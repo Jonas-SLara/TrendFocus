@@ -3,11 +3,13 @@ package com.ufsm.si.TrendFocus.exceptions;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -59,6 +61,36 @@ public class GlobalExceptionHandler {
 
         response.put("message", msg);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+
+    // Erros de violação de integridade (chave duplicada, foreign key, etc)
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Map<String, String>> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
+        Map<String, String> response = new HashMap<>();
+        response.put("erro", "Violação de integridade de dados");
+
+        String msg = ex.getMostSpecificCause().getMessage();
+        response.put("msg", msg);
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+    }
+    
+    //erro para conversão do json -> enum inválido
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<Map<String, String>> handleNotReadable(HttpMessageNotReadableException ex){
+        Map<String, String> response = new HashMap<>();
+        response.put("erro", "erro de leitura do corpo da requisição");
+        response.put("msg", ex.getMessage());
+        response.put("cause", "JSON mal formatado ou campo inválido");
+        return ResponseEntity.badRequest().body(response);
+    }
+
+    //credenciais inválidas
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleUsernameNotFound(UsernameNotFoundException ex){
+        Map<String, String> response = new HashMap<>();
+        response.put("erro", "credenciais inválidas");
+        response.put("msg", ex.getMessage());
+        return ResponseEntity.badRequest().body(response);
     }
 
 }

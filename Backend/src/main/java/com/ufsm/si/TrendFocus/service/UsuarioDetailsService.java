@@ -26,6 +26,7 @@ public class UsuarioDetailsService implements UserDetailsService{
             throws UsernameNotFoundException {
         Optional<Usuario> u = usuarioRepository.findByEmail(email);
         if(!u.isPresent()){
+            System.out.println("usuario: " + email + " não encontrado");
             throw new UsernameNotFoundException("usuario: " + email + " não encontrado");
         }
         else{
