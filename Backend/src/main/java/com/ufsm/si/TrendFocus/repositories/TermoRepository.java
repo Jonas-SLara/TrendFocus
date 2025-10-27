@@ -24,11 +24,13 @@ public interface TermoRepository extends JpaRepository<Termo, Long>{
     @Query("SELECT t FROM Termo t WHERE t.topico.id = :idTopico")
     List<Termo> buscarPorTopico(@Param("idTopico") Long idTopico);
 
-    //achar todos os termos de uma area de conhecimento
-    @Query("SELECT t FROM Termo t WHERE t.topico.areaConhecimento = :area")
-    List<Termo> buscarPorAreaConhecimento(@Param("area") AreaConhecimentoEnum area);
-
+   
     //listar todos os termos com paginacao
-    @Query("SELECT t FROM Termo t")
-    Page<Termo> buscarTodos(Pageable pageable);
+    @Query("""
+        SELECT t FROM Termo t 
+        WHERE (:area IS NULL OR t.topico.areaConhecimento = :area)
+        """)
+    Page<Termo> buscarTodos(
+        @Param("area") AreaConhecimentoEnum area,
+        Pageable pageable);
 } 

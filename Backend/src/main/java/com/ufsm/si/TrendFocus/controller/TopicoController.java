@@ -9,6 +9,8 @@ import com.ufsm.si.TrendFocus.dto.request.TopicoRequestDTO;
 import com.ufsm.si.TrendFocus.dto.response.TopicoResponseDTO;
 import com.ufsm.si.TrendFocus.service.TopicoService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import java.net.URI;
@@ -23,6 +25,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/topico")
+@Tag(
+    name = "Topicos de Conhecimento",
+    description = """
+        Coleção de endpoints para criar e remover tópicos,
+        e também listar por paginação seguindo filtros por
+        area de conhecimento
+    """)
 public class TopicoController {
 
     private final TopicoService topicoService;
@@ -37,6 +46,7 @@ public class TopicoController {
         return ResponseEntity.ok().body(topicoService.listar(pageable));
     }
 
+    @SecurityRequirement(name = "bearerAuth")
     @PostMapping
     public ResponseEntity<TopicoResponseDTO> salvar(
             @RequestBody @Valid TopicoRequestDTO novo,
@@ -49,6 +59,7 @@ public class TopicoController {
         return ResponseEntity.created(location).body(topico);
     }
     
+    @SecurityRequirement(name = "bearerAuth")
     @DeleteMapping
     public ResponseEntity<?> deletar(@RequestParam String nome){
         topicoService.deletar(nome);

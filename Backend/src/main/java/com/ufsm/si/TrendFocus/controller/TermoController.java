@@ -7,8 +7,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.ufsm.si.TrendFocus.dto.request.TermoRequestDTO;
 import com.ufsm.si.TrendFocus.dto.response.TermoResponseDTO;
+import com.ufsm.si.TrendFocus.model.enums.AreaConhecimentoEnum;
 import com.ufsm.si.TrendFocus.service.TermoService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import java.net.URI;
@@ -24,6 +27,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/termo")
+@Tag(
+    name = "Termos Chave",
+    description = """
+        Endpoints relacionados a criação e remoção de termos chaves
+        e também a listagem de termos seguindo filtros por area de conhecimento
+    """)
 public class TermoController {
 
     private final TermoService termoService;
@@ -33,10 +42,15 @@ public class TermoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<TermoResponseDTO>> listar(Pageable pageable) {
-        return ResponseEntity.ok().body(termoService.listar(pageable));
+    public ResponseEntity<Page<TermoResponseDTO>> listar(
+            @RequestParam(required = false) AreaConhecimentoEnum area,
+            Pageable pageable) {
+        return ResponseEntity.ok().body(
+            termoService.listar(area, pageable)
+        );
     }
     
+    @SecurityRequirement(name = "bearerAuth")
     @PostMapping
     public ResponseEntity<TermoResponseDTO> salvar(
             @RequestBody @Valid TermoRequestDTO novo,
@@ -51,6 +65,7 @@ public class TermoController {
         return ResponseEntity.created(location).body(termo);
     }
 
+    @SecurityRequirement(name = "bearerAuth")
     @DeleteMapping
     public ResponseEntity<?> deletar(@RequestParam String nome){
         termoService.deletar(nome);

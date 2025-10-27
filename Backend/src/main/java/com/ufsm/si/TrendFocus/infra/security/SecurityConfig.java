@@ -43,8 +43,16 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/termo").permitAll()
                 .requestMatchers(HttpMethod.POST, "/termo").hasAnyRole("ADM", "ANALISTA")
                 .requestMatchers(HttpMethod.DELETE, "/termo").hasAnyRole("ADM", "ANALISTA")
-                .requestMatchers(HttpMethod.GET, "/noticia").permitAll()
+                .requestMatchers(HttpMethod.GET, "/noticia", "/noticia/**").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/noticia").hasAnyRole("ADM", "ANALISTA")
                 .requestMatchers(HttpMethod.POST, "/noticia").hasAnyRole("ADM", "ANALISTA")
+                .requestMatchers(
+                    "/swagger-ui.html",
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/api-docs/**",
+                    "/webjars/**"
+                ).permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

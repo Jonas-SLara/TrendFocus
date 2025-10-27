@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ufsm.si.TrendFocus.dto.request.NoticiaRegisterDTO;
+import com.ufsm.si.TrendFocus.dto.response.AnaliseAreaTermoResponseDTO;
 import com.ufsm.si.TrendFocus.dto.response.NoticiaResponseDTO;
 import com.ufsm.si.TrendFocus.mapper.NoticiaMapper;
 import com.ufsm.si.TrendFocus.model.Noticia;
@@ -41,23 +42,28 @@ public class NoticiaService {
         }
 
         Noticia noticia = NoticiaMapper.toEntity(nova, termos);
-
-        System.out.println(noticia.getTitulo());
-
         Noticia entidade = noticiaRepository.save(noticia);
-
-        System.out.println("\n salvou \n");
-        return NoticiaMapper.toResponse(entidade);
-        
+        return NoticiaMapper.toResponse(entidade);   
     }
 
-    @Transactional(readOnly = true)
+    //obtive uma lista de objetos com os campos dejesados de uma query
+    //usei uma interface que o spring implementa em tempo de execução e obtive os dto
+    public List<AnaliseAreaTermoResponseDTO> gerarAnalise(LocalDateTime inicio, LocalDateTime fim) {
+        return noticiaRepository.analisePorAreaTermo(inicio, fim)
+            .stream()
+            .map(p -> new AnaliseAreaTermoResponseDTO(
+                    p.getAreaConhecimento(),
+                    p.getTermo(),
+                    p.getQuantidadeNoticias()
+            ))
+            .toList();
+    }
+
     public Page<NoticiaResponseDTO> listar(AreaConhecimentoEnum area, Long termoId, Pageable pageable){
         return noticiaRepository.buscarTodos(area, termoId, pageable)
             .map(n -> NoticiaMapper.toResponse(n));
     }
 
-    @Transactional(readOnly = true)
     public Page<NoticiaResponseDTO> listarPorPeriodo(
         AreaConhecimentoEnum area,
         Long termoId,

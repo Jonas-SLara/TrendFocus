@@ -12,6 +12,7 @@ import com.ufsm.si.TrendFocus.dto.response.TermoResponseDTO;
 import com.ufsm.si.TrendFocus.mapper.TermoMapper;
 import com.ufsm.si.TrendFocus.model.Termo;
 import com.ufsm.si.TrendFocus.model.Topico;
+import com.ufsm.si.TrendFocus.model.enums.AreaConhecimentoEnum;
 import com.ufsm.si.TrendFocus.repositories.TermoRepository;
 import com.ufsm.si.TrendFocus.repositories.TopicoRepository;
 
@@ -37,8 +38,8 @@ public class TermoService {
         return TermoMapper.toResponse(termoRepository.save(novo));
     }
 
-    public Page<TermoResponseDTO> listar(Pageable pageable){
-        return termoRepository.buscarTodos(pageable)
+    public Page<TermoResponseDTO> listar(AreaConhecimentoEnum area, Pageable pageable){
+        return termoRepository.buscarTodos(area, pageable)
             .map(termo -> TermoMapper.toResponse(termo));
     }
 
